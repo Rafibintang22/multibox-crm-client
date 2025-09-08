@@ -1,5 +1,5 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
-import { DashboardPage, NotFoundPage } from "./pages";
+import { DashboardPage, DataUnitPage, LokasiPemasanganPage, NotFoundPage } from "./pages";
 import { ConfigProvider } from "antd";
 import { themeColor } from "./assets/styles";
 
@@ -11,6 +11,7 @@ function App() {
                 token: {
                     colorPrimary: primary,
                     colorBorder: "#E0E0E0",
+                    fontFamily: "'Poppins', sans-serif",
                 },
 
                 components: {
@@ -27,6 +28,8 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<DashboardPage />}></Route>
+                    <Route path="/box-unit/data" element={<DataUnitPage />}></Route>
+                    <Route path="/box-unit/location" element={<LokasiPemasanganPage />}></Route>
                     <Route path="*" element={<NotFoundPage />}></Route>
                 </Routes>
             </BrowserRouter>

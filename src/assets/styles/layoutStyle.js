@@ -16,6 +16,7 @@
  */
 
 const layoutStyle = {
+    maincontainer: "mx-4 mt-7 flex-1",
     phonecontainer:
         "relative overflow-x-hidden flex h-full w-full items-center justify-center bg-background",
     phonelayout:

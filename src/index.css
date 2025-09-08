@@ -39,7 +39,7 @@ body {
     width: 100vw;
     margin: 0;
     padding: 0;
-    font-family: var(--font-sans);
+    font-family: var(--font-sans) !important;
     font-size: var(--font-size-xs);
     color: var(--background);
     background-color: var(--foreground);
@@ -55,7 +55,7 @@ body {
 }
 
 /* -------------------------------
-   Utilities (optional)
+   Utilities
 --------------------------------*/
 a {
     color: inherit;
@@ -66,7 +66,11 @@ button {
     font-family: var(--font-sans);
 }
 
-/* Scrollbar styling (optional) */
+.sidebar {
+    user-select: none;
+}
+
+/* Scrollbar styling */
 ::-webkit-scrollbar {
     width: 4px;
 }

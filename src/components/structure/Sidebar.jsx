@@ -20,12 +20,12 @@ function Sidebar() {
     const menu = [
         { key: "/", icon: <LayoutDashboard size={iconSize} />, label: "Dashboard" },
         {
-            key: "unit-box",
+            key: "box-unit",
             icon: <TvMinimal size={iconSize} />,
             label: "Manajemen Unit",
             children: [
-                { key: "/unit-box/data", label: "Data Unit Box" },
-                { key: "/unit-box/location", label: "Lokasi Pemasangan" },
+                { key: "/box-unit/data", label: "Data Unit Box" },
+                { key: "/box-unit/location", label: "Lokasi Pemasangan" },
             ],
         },
         {
@@ -111,7 +111,7 @@ function Sidebar() {
 
     return (
         <>
-            <div className="sidebar hidden lg:flex flex-col min-w-max h-full bg-white py-6 border-r border-gray-100">
+            <nav className="sidebar hidden lg:flex flex-col min-w-max h-full bg-white py-6 border-r border-gray-100">
                 {/* Header (fixed) */}
                 <div className="head-sidebar flex items-center gap-2 px-4 pb-4 border-b-[0.5px] border-gray-200">
                     <MonitorCog color="#00aaad" />
@@ -133,10 +133,10 @@ function Sidebar() {
                         }}
                     />
                 </div>
-            </div>
+            </nav>
 
             {isSidebarOpen && (
-                <div className="sidebar-mobile absolute flex lg:hidden flex-col w-screen h-full bg-white py-6">
+                <nav className="sidebar-mobile z-10 absolute flex lg:hidden flex-col w-screen h-full bg-white py-6">
                     {/* Header (fixed) */}
                     <div className="head-sidebar flex justify-between items-center gap-2 px-4 pb-4 border-b-[0.5px] border-gray-200">
                         <div className="flex gap-2">
@@ -167,7 +167,7 @@ function Sidebar() {
                             }}
                         />
                     </div>
-                </div>
+                </nav>
             )}
         </>
     );
