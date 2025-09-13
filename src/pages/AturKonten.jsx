@@ -5,7 +5,7 @@ import { HeadMain, Scheduler } from "../components/atom";
 function AturKonten() {
     return (
         <GlobalLayout>
-            <HeadMain title="atur konten" />
+            <HeadMain title="Atur Konten" />
 
             <Scheduler />
         </GlobalLayout>
