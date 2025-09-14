@@ -1,26 +1,14 @@
-import React from "react";
 import { Scheduler } from "@aldabil/react-scheduler";
 
-function SchedulerComp() {
-    return (
-        <Scheduler
-            view="month"
-            events={[
-                {
-                    event_id: 1,
-                    title: "Event 1",
-                    start: new Date("2021/5/2 09:30"),
-                    end: new Date("2021/5/2 10:30"),
-                },
-                {
-                    event_id: 2,
-                    title: "Event 2",
-                    start: new Date("2021/5/4 10:00"),
-                    end: new Date("2021/5/4 11:00"),
-                },
-            ]}
-        />
-    );
+function SchedulerComp({ dataSource = [] }) {
+    // transform data server -> format scheduler
+    const events = dataSource.map((item) => ({
+        event_id: item.schedule_id,
+        title: `Pattern: ${item.repeat_pattern}`, // bisa diganti misalnya "Daily Schedule"
+        start: new Date(item.start_time * 1000), // epoch (detik) -> Date
+        end: new Date(item.end_time * 1000),
+    }));
+    return <Scheduler view="month" events={events} editable={false} />;
 }
 
 export default SchedulerComp;

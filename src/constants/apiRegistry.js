@@ -12,6 +12,7 @@ const createCRUDHandlers = (api) => ({
 const registeredApi = {
     playlist: new APIs.PlaylistEndpoint(),
     content: new APIs.ContentEndpoint(),
+    schedule: new APIs.ScheduleEndpoint(),
 };
 
 const mappedApiFunctions = {
@@ -20,6 +21,7 @@ const mappedApiFunctions = {
         postContent: (data) => registeredApi.playlist.createContent(data),
     },
     content: createCRUDHandlers(registeredApi.content),
+    schedule: createCRUDHandlers(registeredApi.schedule),
 };
 
 export const getFunctionApi = (type, method) => {

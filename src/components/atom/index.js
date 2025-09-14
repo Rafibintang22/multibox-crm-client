@@ -5,6 +5,7 @@ import TableComp from "./TableComp";
 import ModalInsertPlaylist from "./ModalInsertPlaylist";
 import ModalPlaylistDetail from "./ModalPlaylistDetail";
 import ModalInsertContent from "./ModalInsertContent";
+import ModalInsertSchedule from "./ModalInsertSchedule";
 
 export {
     HeadMain,
@@ -14,4 +15,5 @@ export {
     ModalInsertPlaylist,
     ModalPlaylistDetail,
     ModalInsertContent,
+    ModalInsertSchedule,
 };
