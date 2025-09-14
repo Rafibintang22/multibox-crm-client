@@ -6,6 +6,7 @@ const getColumnsPlaylist = (handleEdit, handleDelete) => [
         title: "Kode",
         dataIndex: "playlist_id",
         key: "playlist_id",
+        width: 50,
     },
     {
         title: "Nama",
@@ -20,6 +21,7 @@ const getColumnsPlaylist = (handleEdit, handleDelete) => [
     {
         title: "Aksi",
         key: "aksi",
+        width: 120,
         render: (_, record) => (
             <Space>
                 <Button type="link" icon={<EditOutlined />} onClick={() => handleEdit(record)}>

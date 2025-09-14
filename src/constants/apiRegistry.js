@@ -11,10 +11,12 @@ const createCRUDHandlers = (api) => ({
 
 const registeredApi = {
     playlist: new APIs.PlaylistEndpoint(),
+    content: new APIs.ContentEndpoint(),
 };
 
 const mappedApiFunctions = {
     playlist: createCRUDHandlers(registeredApi.playlist),
+    content: createCRUDHandlers(registeredApi.content),
 };
 
 export const getFunctionApi = (type, method) => {

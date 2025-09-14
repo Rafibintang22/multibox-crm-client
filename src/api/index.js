@@ -1,3 +1,3 @@
 import PlaylistEndpoint from "./PlaylistEndpoint";
-
-export { PlaylistEndpoint };
+import ContentEndpoint from "./ContentEndpoint";
+export { PlaylistEndpoint, ContentEndpoint };
