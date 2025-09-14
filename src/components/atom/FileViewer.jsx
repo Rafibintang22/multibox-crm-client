@@ -57,29 +57,43 @@ function FileViewer({ dataSource = [] }) {
                                     }}
                                     onClick={() => setPreview(file)}
                                 >
-                                    <img
-                                        src={thumbnails[file.content_id]}
-                                        alt={file.title}
-                                        style={{
-                                            width: "100%",
-                                            height: "100%",
-                                            objectFit: "cover",
-                                        }}
-                                    />
-                                    {/* Icon Play */}
-                                    <div
-                                        style={{
-                                            position: "absolute",
-                                            top: "50%",
-                                            left: "50%",
-                                            transform: "translate(-50%, -50%)",
-                                            fontSize: 40,
-                                            color: "white",
-                                            textShadow: "0 0 10px rgba(0,0,0,0.6)",
-                                        }}
-                                    >
-                                        ▶
-                                    </div>
+                                    {file.type === "video" ? (
+                                        <>
+                                            <img
+                                                src={thumbnails[file.content_id]}
+                                                alt={file.title}
+                                                style={{
+                                                    width: "100%",
+                                                    height: "100%",
+                                                    objectFit: "cover",
+                                                }}
+                                            />
+                                            {/* Icon Play */}
+                                            <div
+                                                style={{
+                                                    position: "absolute",
+                                                    top: "50%",
+                                                    left: "50%",
+                                                    transform: "translate(-50%, -50%)",
+                                                    fontSize: 40,
+                                                    color: "white",
+                                                    textShadow: "0 0 10px rgba(0,0,0,0.6)",
+                                                }}
+                                            >
+                                                ▶
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <img
+                                            src={file.url}
+                                            alt={file.title}
+                                            style={{
+                                                width: "100%",
+                                                height: "100%",
+                                                objectFit: "cover",
+                                            }}
+                                        />
+                                    )}
                                 </div>
                                 <p style={{ textAlign: "center", marginTop: 8 }}>{file.title}</p>
                             </Col>
@@ -96,17 +110,24 @@ function FileViewer({ dataSource = [] }) {
                 title={preview?.title}
                 width={800}
                 centered
-                destroyOnClose
+                destroyOnHidden
             >
-                {preview && (
-                    <video
-                        key={preview?.url}
-                        src={preview?.url}
-                        style={{ width: "100%", borderRadius: 8 }}
-                        controls
-                        autoPlay
-                    />
-                )}
+                {preview &&
+                    (preview.type === "video" ? (
+                        <video
+                            key={preview?.url}
+                            src={preview?.url}
+                            style={{ width: "100%", borderRadius: 8 }}
+                            controls
+                            autoPlay
+                        />
+                    ) : (
+                        <img
+                            src={preview?.url}
+                            alt={preview?.title}
+                            style={{ width: "100%", borderRadius: 8 }}
+                        />
+                    ))}
             </Modal>
         </>
     );

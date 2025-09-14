@@ -19,7 +19,6 @@ function TableComp({ dataSource, columns }) {
                     dataSource={dataSource}
                     columns={columns}
                     pagination={{ pageSize: 5 }}
-                    rowKey="key"
                     scroll={{ x: "max-content" }}
                 />
             </Card>

@@ -1,7 +1,7 @@
 import { Button, Space } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 
-const getColumnsPlaylist = (handleEdit, handleDelete) => [
+const getColumnsPlaylist = (handleDetail) => [
     {
         title: "Kode",
         dataIndex: "playlist_id",
@@ -24,17 +24,11 @@ const getColumnsPlaylist = (handleEdit, handleDelete) => [
         width: 120,
         render: (_, record) => (
             <Space>
-                <Button type="link" icon={<EditOutlined />} onClick={() => handleEdit(record)}>
-                    Edit
-                </Button>
                 <Button
                     type="link"
-                    danger
-                    icon={<DeleteOutlined />}
-                    onClick={() => handleDelete(record)}
-                >
-                    Hapus
-                </Button>
+                    icon={<EyeOutlined />}
+                    onClick={() => handleDetail(record)}
+                ></Button>
             </Space>
         ),
     },

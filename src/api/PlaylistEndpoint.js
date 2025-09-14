@@ -32,6 +32,15 @@ class PlaylistEndpoint extends ServerInstance {
         }
     }
 
+    async createContent(playlistContentData) {
+        try {
+            const response = await this.post(`v1/playlist/content`, playlistContentData);
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async updateData(playlistData) {
         try {
             const response = await this.update(`v1/playlist`, playlistData);

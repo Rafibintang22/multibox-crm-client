@@ -15,7 +15,10 @@ const registeredApi = {
 };
 
 const mappedApiFunctions = {
-    playlist: createCRUDHandlers(registeredApi.playlist),
+    playlist: {
+        ...createCRUDHandlers(registeredApi.playlist),
+        postContent: (data) => registeredApi.playlist.createContent(data),
+    },
     content: createCRUDHandlers(registeredApi.content),
 };
 
