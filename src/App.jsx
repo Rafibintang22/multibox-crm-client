@@ -1,10 +1,11 @@
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import {
-    AturKonten,
+    KontenLayarPage,
     DashboardPage,
     DataUnitPage,
     LokasiPemasanganPage,
     NotFoundPage,
+    JadwalKontenPage,
 } from "./pages";
 import { ConfigProvider } from "antd";
 import { themeColor } from "./assets/styles";
@@ -36,7 +37,8 @@ function App() {
                     <Route path="/" element={<DashboardPage />}></Route>
                     <Route path="/box-unit/data" element={<DataUnitPage />}></Route>
                     <Route path="/box-unit/location" element={<LokasiPemasanganPage />}></Route>
-                    <Route path="/content/manage" element={<AturKonten />}></Route>
+                    <Route path="/content/manage" element={<KontenLayarPage />}></Route>
+                    <Route path="/content/schedule" element={<JadwalKontenPage />}></Route>
                     <Route path="*" element={<NotFoundPage />}></Route>
                 </Routes>
             </BrowserRouter>

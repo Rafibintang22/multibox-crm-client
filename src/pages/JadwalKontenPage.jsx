@@ -2,14 +2,13 @@ import React from "react";
 import { GlobalLayout } from "../components/layout";
 import { HeadMain, Scheduler } from "../components/atom";
 
-function AturKonten() {
+function JadwalKontenPage() {
     return (
         <GlobalLayout>
-            <HeadMain title="Atur Konten" />
-
+            <HeadMain title="Jadwal Konten" />
             <Scheduler />
         </GlobalLayout>
     );
 }
 
-export default AturKonten;
+export default JadwalKontenPage;

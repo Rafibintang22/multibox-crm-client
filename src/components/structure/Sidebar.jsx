@@ -31,9 +31,9 @@ function Sidebar() {
         {
             key: "content",
             icon: <MonitorPlay size={iconSize} />,
-            label: "Konten Layar",
+            label: "Manajemen Konten",
             children: [
-                { key: "/content/manage", label: "Atur Konten" },
+                { key: "/content/manage", label: "Konten Layar" },
                 { key: "/content/schedule", label: "Jadwal Konten" },
             ],
         },
@@ -136,7 +136,7 @@ function Sidebar() {
             </nav>
 
             {isSidebarOpen && (
-                <nav className="sidebar-mobile z-10 absolute flex lg:hidden flex-col w-screen h-full bg-white py-6">
+                <nav className="sidebar-mobile z-100 absolute flex lg:hidden flex-col w-screen h-full bg-white py-6">
                     {/* Header (fixed) */}
                     <div className="head-sidebar flex justify-between items-center gap-2 px-4 pb-4 border-b-[0.5px] border-gray-200">
                         <div className="flex gap-2">

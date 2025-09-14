@@ -73,12 +73,7 @@ function LokasiPemasanganPage() {
 
     return (
         <GlobalLayout>
-            <HeadMain
-                title="Lokasi Pemasangan"
-                isBtnAdd={true}
-                textBtnAdd="Tambah Lokasi"
-                funcBtnAdd={handleAdd}
-            />
+            <HeadMain title="Lokasi Pemasangan" isBtnAdd="Tambah Lokasi" funcBtnAdd={handleAdd} />
 
             <Card className="mb-4">
                 <Space>

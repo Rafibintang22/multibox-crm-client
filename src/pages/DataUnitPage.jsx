@@ -92,7 +92,7 @@ function DataUnitPage() {
 
     return (
         <GlobalLayout>
-            <HeadMain title={"Data Unit Box"} isBtnAdd={true} textBtnAdd="Tambah data unit" />
+            <HeadMain title={"Data Unit Box"} isBtnAdd="Tambah data unit" />
 
             <Card className="mb-4">
                 <Space>
