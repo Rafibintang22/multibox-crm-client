@@ -1,7 +1,6 @@
 import { Card, Input, Space, Table } from "antd";
-import React from "react";
 
-function TableComp({ dataSource, columns }) {
+function TableComp({ dataSource, columns, keyRow = "id" }) {
     return (
         <>
             <Card className="mb-4">
@@ -20,6 +19,7 @@ function TableComp({ dataSource, columns }) {
                     columns={columns}
                     pagination={{ pageSize: 5 }}
                     scroll={{ x: "max-content" }}
+                    rowKey={(record) => record[keyRow] || record.id}
                 />
             </Card>
         </>

@@ -14,7 +14,7 @@ import { MODAL_TYPE } from "../constants/modalStore";
 
 function KontenLayarPage() {
     const { setCondition, setIsLoading } = useAlert();
-    const { setModal, setID, getOneID } = useModal();
+    const { setModal, setID } = useModal();
 
     const [dataPlaylist, setDataPlaylist] = useState([]);
     const [dataContent, setDataContent] = useState([]);
@@ -69,7 +69,11 @@ function KontenLayarPage() {
                     isBtnAdd={"Tambah Playlist"}
                     funcBtnAdd={() => setModal(MODAL_TYPE.INSERT_PL)}
                 />
-                <TableComp columns={columnsPlaylist} dataSource={dataPlaylist} />
+                <TableComp
+                    columns={columnsPlaylist}
+                    dataSource={dataPlaylist}
+                    keyRow="playlist_id"
+                />
                 <div className="mb-11"></div>
                 <HeadMain
                     title="Daftar Konten"

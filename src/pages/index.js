@@ -4,6 +4,7 @@ import JadwalKontenPage from "./JadwalKontenPage";
 import KontenLayarPage from "./KontenLayarPage";
 import LokasiPemasanganPage from "./LokasiPemasanganPage";
 import NotFoundPage from "./NotFoundPage";
+import LoginPage from "./LoginPage";
 
 export {
     DashboardPage,
@@ -12,4 +13,5 @@ export {
     KontenLayarPage,
     JadwalKontenPage,
     NotFoundPage,
+    LoginPage,
 };

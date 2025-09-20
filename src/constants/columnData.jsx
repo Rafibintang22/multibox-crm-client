@@ -22,15 +22,7 @@ const getColumnsPlaylist = (handleDetail) => [
         title: "Aksi",
         key: "aksi",
         width: 120,
-        render: (_, record) => (
-            <Space>
-                <Button
-                    type="link"
-                    icon={<EyeOutlined />}
-                    onClick={() => handleDetail(record)}
-                ></Button>
-            </Space>
-        ),
+        render: (_, record) => <Button onClick={() => handleDetail(record)}>Detail</Button>,
     },
 ];
 

@@ -9,13 +9,15 @@ function ModalPlaylistDetail() {
     const [playlist, setPlaylist] = useState(null);
 
     useEffect(() => {
-        if (!getOneID || isModalOpen !== "DETAIL_PLAYLIST") return;
+        if (!getOneID || isModalOpen !== MODAL_TYPE.DETAIL_PL) return;
 
         const fetchData = async () => {
             setLoading(true);
             try {
                 const getOnePlaylist = getFunctionApi("playlist", "getDetail");
                 const data = await getOnePlaylist(getOneID);
+                console.log(data);
+
                 setPlaylist(data);
             } catch (err) {
                 console.error("Gagal ambil detail playlist:", err);
@@ -35,18 +37,18 @@ function ModalPlaylistDetail() {
 
     const columnsContent = [
         {
-            title: "Order",
+            title: "Urutan",
             dataIndex: "order",
             key: "order",
             width: 80,
         },
         {
-            title: "Title",
+            title: "Judul",
             dataIndex: "title",
             key: "title",
         },
         {
-            title: "Duration",
+            title: "Durasi",
             dataIndex: "duration",
             key: "duration",
             width: 120,
@@ -66,17 +68,30 @@ function ModalPlaylistDetail() {
 
     const columnsSchedule = [
         {
-            title: "Start Time",
-            dataIndex: "start_time",
-            key: "start_time",
-            render: (t) => new Date(t * 1000).toLocaleString(),
+            title: "Tanggal mulai",
+            dataIndex: "start_date",
+            key: "start_date",
+            render: (t) => new Date(t).toISOString().split("T")[0],
         },
         {
-            title: "End Time",
+            title: "Tanggal berakhir",
+            dataIndex: "end_date",
+            key: "end_date",
+            render: (t) => new Date(t).toISOString().split("T")[0],
+        },
+        {
+            title: "Waktu mulai",
+            dataIndex: "start_time",
+            key: "start_time",
+            render: (t) => (t ? t.slice(0, 5) : "-"),
+        },
+        {
+            title: "Waktu berakhir",
             dataIndex: "end_time",
             key: "end_time",
-            render: (t) => new Date(t * 1000).toLocaleString(),
+            render: (t) => (t ? t.slice(0, 5) : "-"),
         },
+
         {
             title: "Repeat",
             dataIndex: "repeat_pattern",
@@ -97,39 +112,35 @@ function ModalPlaylistDetail() {
             {playlist ? (
                 <>
                     <Descriptions bordered column={1} size="middle">
-                        <Descriptions.Item label="Playlist ID">
+                        <Descriptions.Item label="ID Playlist">
                             {playlist.playlist_id}
                         </Descriptions.Item>
-                        <Descriptions.Item label="Name">{playlist.name}</Descriptions.Item>
-                        <Descriptions.Item label="Description">
+                        <Descriptions.Item label="Nama">{playlist.name}</Descriptions.Item>
+                        <Descriptions.Item label="Deskripsi">
                             {playlist.description}
                         </Descriptions.Item>
-                        <Descriptions.Item label="Airport">
+                        <Descriptions.Item label="Tempat">
                             {playlist.airport?.name} ({playlist.airport?.code})
-                        </Descriptions.Item>
-                        <Descriptions.Item label="Created At">
-                            {new Date(playlist.created_at).toLocaleString()}
-                        </Descriptions.Item>
-                        <Descriptions.Item label="Updated At">
-                            {new Date(playlist.updated_at).toLocaleString()}
                         </Descriptions.Item>
                     </Descriptions>
 
-                    <h3 className="mt-4 mb-2">Contents</h3>
+                    <h3 className="mt-4 mb-2 font-semibold">Daftar Konten</h3>
                     <Table
                         dataSource={playlist.contents}
                         columns={columnsContent}
                         rowKey="content_id"
                         pagination={false}
+                        scroll={{ x: "max-content" }}
                         size="small"
                     />
 
-                    <h3 className="mt-6 mb-2">Schedules</h3>
+                    <h3 className="mt-6 mb-2 font-semibold">Penjadwalan</h3>
                     <Table
                         dataSource={playlist.schedules}
                         columns={columnsSchedule}
                         rowKey="schedule_id"
                         pagination={false}
+                        scroll={{ x: "max-content" }}
                         size="small"
                     />
                 </>

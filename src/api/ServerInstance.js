@@ -1,5 +1,5 @@
 import axios from "axios";
-// axios.defaults.withCredentials = true;
+axios.defaults.withCredentials = true;
 
 class ServerInstance {
     constructor() {
@@ -10,7 +10,7 @@ class ServerInstance {
 
         this.api = axios.create({
             baseURL: this.serverUrl,
-            withCredentials: false,
+            withCredentials: true,
         });
     }
 

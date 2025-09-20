@@ -24,16 +24,12 @@ function ModalInsertContent({ onSuccess }) {
                     headers: { "Content-Type": "multipart/form-data" },
                 });
 
-                // ✅ Set alert
                 setCondition(ALERT_TYPE.SUCCESS, `${file.name} berhasil diupload`);
 
-                // ✅ Tutup modal
                 setModal(false);
 
-                // ✅ Refresh halaman/data
                 if (onSuccess) onSuccess();
 
-                // ✅ Update status upload AntD
                 onUploadSuccess("ok");
             } catch (err) {
                 setCondition(ALERT_TYPE.FAILED, `${file.name} gagal diupload`, err.message);
@@ -55,7 +51,7 @@ function ModalInsertContent({ onSuccess }) {
             width={700}
             centered
         >
-            <Dragger {...props}>
+            <Dragger {...props} accept="video/*,image/*">
                 <p className="ant-upload-drag-icon">
                     <InboxOutlined />
                 </p>

@@ -13,9 +13,14 @@ const registeredApi = {
     playlist: new APIs.PlaylistEndpoint(),
     content: new APIs.ContentEndpoint(),
     schedule: new APIs.ScheduleEndpoint(),
+    auth: new APIs.AuthEndpoint(),
 };
 
 const mappedApiFunctions = {
+    auth: {
+        login: (data) => registeredApi.auth.login(data),
+        logout: () => registeredApi.auth.logout(),
+    },
     playlist: {
         ...createCRUDHandlers(registeredApi.playlist),
         postContent: (data) => registeredApi.playlist.createContent(data),

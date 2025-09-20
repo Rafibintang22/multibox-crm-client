@@ -1,14 +1,14 @@
 // ModalInsertSchedule.jsx
-import { Modal, Form, Select, DatePicker } from "antd";
-import { useState } from "react";
-import { getFunctionApi, useModal } from "../../constants";
+import { Modal, Form, Select, DatePicker, Switch, TimePicker } from "antd";
+import { getFunctionApi, useAlert, useModal } from "../../constants";
 import { MODAL_TYPE } from "../../constants/modalStore";
+import { ALERT_TYPE } from "../../constants/alertStore";
 
 const { RangePicker } = DatePicker;
 
 function ModalInsertSchedule({ onSuccess, playlists = [] }) {
     const [form] = Form.useForm();
-    const [loading, setLoading] = useState(false);
+    const { setCondition, setIsLoading, isLoading } = useAlert();
 
     const { isModalOpen, setModal } = useModal();
     const addScheduleApi = getFunctionApi("schedule", "post");
@@ -16,24 +16,31 @@ function ModalInsertSchedule({ onSuccess, playlists = [] }) {
     const handleOk = async () => {
         try {
             const values = await form.validateFields();
-            setLoading(true);
+            setIsLoading(true);
 
             const payload = {
-                playlist_id: values.playlist_id, // fallback ke store
-                start_time: Math.floor(values.daterange[0].valueOf() / 1000),
-                end_time: Math.floor(values.daterange[1].valueOf() / 1000),
+                is_urgent: values.isUrgent || false,
+                playlist_id: values.playlist_id,
+                airport_id: 1, // sementara hardcode, atau ambil dari state/context
+                start_date: values.daterange[0].valueOf(),
+                end_date: values.daterange[1].valueOf(),
+                start_time: values.startTime.format("HH:mm:ss"),
+                end_time: values.endTime.format("HH:mm:ss"),
                 repeat_pattern: values.repeat_pattern,
             };
 
             await addScheduleApi(payload);
+
+            setCondition(ALERT_TYPE.SUCCESS, "Berhasil menambahkan jadwal");
 
             if (onSuccess) onSuccess();
             form.resetFields();
             setModal(false);
         } catch (err) {
             console.error("Gagal tambah jadwal:", err);
+            setCondition(ALERT_TYPE.FAILED, "Gagal menambahkan jadwal");
         } finally {
-            setLoading(false);
+            setIsLoading(false);
         }
     };
 
@@ -48,11 +55,14 @@ function ModalInsertSchedule({ onSuccess, playlists = [] }) {
             open={isModalOpen === MODAL_TYPE.INSERT_SC}
             onCancel={handleCancel}
             onOk={handleOk}
-            confirmLoading={loading}
+            confirmLoading={isLoading}
             centered
             destroyOnHidden
         >
             <Form form={form} layout="vertical">
+                <Form.Item name="isUrgent" label="Konten darurat ?" layout="inline">
+                    <Switch />
+                </Form.Item>
                 <Form.Item
                     label="Playlist"
                     name="playlist_id"
@@ -68,12 +78,31 @@ function ModalInsertSchedule({ onSuccess, playlists = [] }) {
                 </Form.Item>
 
                 <Form.Item
-                    label="Waktu"
+                    label="Tanggal mulai - tanggal berakhir"
                     name="daterange"
-                    rules={[{ required: true, message: "Pilih rentang waktu" }]}
+                    rules={[{ required: true, message: "Pilih rentang tanggal" }]}
                 >
-                    <RangePicker showTime />
+                    <RangePicker className="w-full" />
                 </Form.Item>
+
+                <div className="flex w-full gap-3">
+                    <Form.Item
+                        label="Waktu mulai"
+                        name="startTime"
+                        rules={[{ required: true, message: "Pilih rentang waktu" }]}
+                        className="w-full"
+                    >
+                        <TimePicker className="w-full" />
+                    </Form.Item>
+                    <Form.Item
+                        label="Waktu berakhir"
+                        name="endTime"
+                        rules={[{ required: true, message: "Pilih rentang waktu" }]}
+                        className="w-full"
+                    >
+                        <TimePicker className="w-full" />
+                    </Form.Item>
+                </div>
 
                 <Form.Item
                     label="Repeat Pattern"
