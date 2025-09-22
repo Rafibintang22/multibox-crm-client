@@ -14,6 +14,8 @@ function ModalInsertPlaylist({ onSuccess }) {
 
     useEffect(() => {
         if (isModalOpen === MODAL_TYPE.INSERT_PL) {
+            form.resetFields();
+            setOrderedContents([]);
             getContentData();
         }
     }, [isModalOpen]);
@@ -32,6 +34,7 @@ function ModalInsertPlaylist({ onSuccess }) {
         }
     };
 
+    // --- Handle OK / submit ---
     const handleOk = async () => {
         try {
             setIsLoading(true);
@@ -41,7 +44,7 @@ function ModalInsertPlaylist({ onSuccess }) {
             const postContent = getFunctionApi("playlist", "postContent");
             const postContentNew = getFunctionApi("content", "post");
 
-            // --- Step 1: Upload konten baru dulu ---
+            // Upload konten baru
             let newContentIds = [];
             if (values.newContents?.length) {
                 try {
@@ -59,18 +62,18 @@ function ModalInsertPlaylist({ onSuccess }) {
                         ALERT_TYPE.FAILED,
                         "Upload konten baru gagal, playlist tidak dibuat"
                     );
-                    return; // stop disini
+                    return;
                 }
             }
 
-            // --- Step 2: Buat playlist ---
+            // Buat playlist
             const newPlaylist = await postPlaylist({
                 airport_id: 1,
                 name: values.name,
                 description: values.description,
             });
 
-            // --- Step 3: Gabungkan konten lama + baru dengan order ---
+            // Gabungkan konten lama + baru
             const allContentIds = [...(values.contentIds || []), ...newContentIds];
 
             if (allContentIds.length) {
@@ -88,6 +91,7 @@ function ModalInsertPlaylist({ onSuccess }) {
             setCondition(ALERT_TYPE.SUCCESS, "Playlist berhasil ditambahkan");
             onSuccess?.();
             form.resetFields();
+            setOrderedContents([]);
             setModal(false);
         } catch (err) {
             console.error(err);
@@ -95,6 +99,24 @@ function ModalInsertPlaylist({ onSuccess }) {
         } finally {
             setIsLoading(false);
         }
+    };
+
+    // --- Update orderedContents realtime ---
+    const handleFormChange = () => {
+        const values = form.getFieldsValue(true); // ambil semua field
+        const oldContents = (values.contentIds || []).map((id) => {
+            const c = dataContent.find((d) => d.content_id === id);
+            return { type: "old", id, title: c?.title || `Content ${id}` };
+        });
+
+        const newContents = (values.newContents || []).map((f) => ({
+            type: "new",
+            id: f.uid,
+            title: f.name,
+            file: f.originFileObj,
+        }));
+
+        setOrderedContents([...oldContents, ...newContents]);
     };
 
     return (
@@ -108,7 +130,11 @@ function ModalInsertPlaylist({ onSuccess }) {
             width={700}
             centered
         >
-            <Form form={form} layout="vertical">
+            <Form
+                form={form}
+                layout="vertical"
+                onValuesChange={handleFormChange} // realtime update
+            >
                 <Form.Item
                     name="name"
                     label="Nama Playlist"
@@ -145,6 +171,28 @@ function ModalInsertPlaylist({ onSuccess }) {
                     </Upload>
                 </Form.Item>
             </Form>
+
+            {/* Preview order */}
+            {orderedContents.length > 0 && (
+                <div className="mt-4">
+                    <h4>Urutan Konten</h4>
+                    <Table
+                        dataSource={orderedContents.map((c, i) => ({
+                            key: c.id,
+                            no: i + 1,
+                            title: c.title,
+                            type: c.type === "old" ? "Konten Lama" : "Konten Baru",
+                        }))}
+                        columns={[
+                            { title: "No", dataIndex: "no", width: 60 },
+                            { title: "Judul", dataIndex: "title" },
+                            { title: "Jenis", dataIndex: "type" },
+                        ]}
+                        pagination={false}
+                        size="small"
+                    />
+                </div>
+            )}
         </Modal>
     );
 }

@@ -24,28 +24,28 @@ function FileViewer({ dataSource = [], onDelete }) {
     const [isManage, setIsManage] = useState(false);
 
     // Generate thumbnail dari video (detik ke-2)
-    useEffect(() => {
-        dataSource.forEach((file) => {
-            if (file.type === "video" && !thumbnails[file.content_id]) {
-                const video = document.createElement("video");
-                video.src = file.url;
-                video.crossOrigin = "anonymous";
-                video.currentTime = 2;
+    // useEffect(() => {
+    //     dataSource.forEach((file) => {
+    //         if (file.type === "video" && !thumbnails[file.content_id]) {
+    //             const video = document.createElement("video");
+    //             video.src = file.url;
+    //             video.crossOrigin = "anonymous";
+    //             video.currentTime = 2;
 
-                video.addEventListener("loadeddata", () => {
-                    const canvas = document.createElement("canvas");
-                    canvas.width = video.videoWidth;
-                    canvas.height = video.videoHeight;
-                    const ctx = canvas.getContext("2d");
-                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    setThumbnails((prev) => ({
-                        ...prev,
-                        [file.content_id]: canvas.toDataURL("image/png"),
-                    }));
-                });
-            }
-        });
-    }, [dataSource, thumbnails]);
+    //             video.addEventListener("loadeddata", () => {
+    //                 const canvas = document.createElement("canvas");
+    //                 canvas.width = video.videoWidth;
+    //                 canvas.height = video.videoHeight;
+    //                 const ctx = canvas.getContext("2d");
+    //                 ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    //                 setThumbnails((prev) => ({
+    //                     ...prev,
+    //                     [file.content_id]: canvas.toDataURL("image/png"),
+    //                 }));
+    //             });
+    //         }
+    //     });
+    // }, [dataSource, thumbnails]);
 
     const toggleSelect = (fileId, checked) => {
         setSelectedFiles((prev) =>
@@ -124,12 +124,12 @@ function FileViewer({ dataSource = [], onDelete }) {
                     </div>
                 </div>
 
-                {dataSource.length === 0 ? (
+                {!dataSource || dataSource?.length === 0 ? (
                     <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
                 ) : viewMode === "Kanban" ? (
                     // ==== KANBAN VIEW ====
                     <Row gutter={[16, 16]}>
-                        {dataSource.map((file) => (
+                        {dataSource?.map((file) => (
                             <Col xs={24} sm={12} md={8} lg={6} key={file.content_id}>
                                 <div style={{ position: "relative" }}>
                                     {isManage && (
