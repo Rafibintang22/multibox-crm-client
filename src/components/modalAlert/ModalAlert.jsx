@@ -1,6 +1,7 @@
 import { Modal, Result, Spin } from "antd";
 import useAlert, { ALERT_TYPE } from "../../constants/alertStore";
 import { useEffect } from "react";
+import Loading from "./Loading";
 
 function AlertModal() {
     const { condition, isLoading, handleClose } = useAlert();
@@ -18,11 +19,7 @@ function AlertModal() {
     }, [result, handleClose]);
 
     if (isLoading) {
-        return (
-            <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/30 backdrop-blur-sm">
-                <Spin size="large" />
-            </div>
-        );
+        return <Loading />;
     }
 
     if (!result) return null;

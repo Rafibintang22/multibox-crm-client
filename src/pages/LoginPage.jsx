@@ -1,12 +1,18 @@
 import { Button, Checkbox, Form, Input } from "antd";
-import { getFunctionApi, useAlert } from "../constants";
+import { getFunctionApi, useAlert, useAuth } from "../constants";
 import { ALERT_TYPE } from "../constants/alertStore";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { Loading } from "../components/modalAlert";
 
 function LoginPage() {
     const [form] = Form.useForm();
     const { setCondition, setIsLoading } = useAlert();
     const navigate = useNavigate();
+
+    const { user, loading } = useAuth();
+
+    if (loading) return <Loading />;
+    if (user) return <Navigate to="/" replace />;
 
     const handleLogin = async () => {
         try {

@@ -15,6 +15,15 @@ class AuthEndpoint extends ServerInstance {
         }
     }
 
+    async verifySession() {
+        try {
+            const response = await this.get(`v1/auth/verify`);
+            return response;
+        } catch (error) {
+            throw error;
+        }
+    }
+
     async logout() {
         try {
             const response = await this.delete(`v1/auth/signout`);

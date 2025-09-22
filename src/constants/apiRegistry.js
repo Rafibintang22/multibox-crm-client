@@ -20,6 +20,7 @@ const mappedApiFunctions = {
     auth: {
         login: (data) => registeredApi.auth.login(data),
         logout: () => registeredApi.auth.logout(),
+        verify: () => registeredApi.auth.verifySession(),
     },
     playlist: {
         ...createCRUDHandlers(registeredApi.playlist),

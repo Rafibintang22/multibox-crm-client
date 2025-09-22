@@ -11,9 +11,20 @@ import {
 import { ConfigProvider } from "antd";
 import { themeColor } from "./assets/styles";
 import AlertModal from "./components/modalAlert/ModalAlert";
+import { useEffect } from "react";
+import { useAuth } from "./constants";
+import { Loading } from "./components/modalAlert";
 
 function App() {
     const primary = themeColor.primary;
+
+    const { verifySession, loading } = useAuth();
+
+    useEffect(() => {
+        verifySession();
+    }, [verifySession]);
+
+    if (loading) return <Loading />;
     return (
         <ConfigProvider
             theme={{
@@ -44,7 +55,6 @@ function App() {
                     <Route path="/content/schedule" element={<JadwalKontenPage />}></Route>
                     <Route path="*" element={<NotFoundPage />}></Route>
                 </Routes>
-
                 <AlertModal />
             </BrowserRouter>
         </ConfigProvider>

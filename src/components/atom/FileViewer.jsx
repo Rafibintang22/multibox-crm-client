@@ -67,6 +67,7 @@ function FileViewer({ dataSource = [], onDelete }) {
             onOk: () => {
                 if (onDelete) {
                     onDelete(selectedFiles);
+                    console.log(selectedFiles);
                 }
                 message.success("File berhasil dihapus");
                 setSelectedFiles([]);
