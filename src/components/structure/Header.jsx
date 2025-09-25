@@ -1,6 +1,7 @@
 import { Button, Avatar, Dropdown } from "antd";
 import { Menu, User, LogOut, Settings } from "lucide-react";
 import { toogleSidebar } from "../../utils";
+import { useAuth } from "../../constants";
 
 function Header() {
     const { isSidebarOpen, setIsSidebarOpen } = toogleSidebar();
@@ -29,6 +30,8 @@ function Header() {
         },
     ];
 
+    const { user } = useAuth();
+
     return (
         <header className="header flex w-full h-18 bg-white justify-between lg:justify-end items-center px-4">
             {/* Sidebar Toggle */}
@@ -44,8 +47,8 @@ function Header() {
                 <div className="flex items-center gap-2 cursor-pointer">
                     <Avatar size={"large"} src="https://i.pravatar.cc/40" alt="User" />
                     <div className="hidden sm:flex flex-col leading-tight">
-                        <span className="font-medium">John Doe</span>
-                        <span className="text-gray-600">Admin</span>
+                        <span className="font-medium">{user?.username}</span>
+                        <span className="text-gray-600">{user?.role}</span>
                     </div>
                 </div>
             </Dropdown>
