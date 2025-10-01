@@ -46,7 +46,8 @@ class ServerInstance {
 
     async delete(endpoint, params) {
         try {
-            const response = await this.api.delete(`/${endpoint}/${params}`);
+            const link = params ? `/${endpoint}/${params}` : `/${endpoint}`;
+            const response = await this.api.delete(link);
             return response.data;
         } catch (error) {
             console.error(error);

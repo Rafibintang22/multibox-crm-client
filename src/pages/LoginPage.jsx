@@ -34,7 +34,7 @@ function LoginPage() {
                     "Berhasil Login",
                     "Proses login berhasil dilakukan"
                 );
-                navigate("/");
+                window.location.reload();
             }
         } catch (error) {
             setCondition(ALERT_TYPE.FAILED, "Gagal Login", "Proses login gagal dilakukan");

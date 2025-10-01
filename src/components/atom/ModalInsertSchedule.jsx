@@ -70,10 +70,13 @@ function ModalInsertSchedule({ onSuccess, playlists = [] }) {
                 >
                     <Select
                         placeholder="Pilih playlist"
-                        options={playlists.map((pl) => ({
-                            value: pl.playlist_id,
-                            label: pl.name,
-                        }))}
+                        options={
+                            playlists &&
+                            playlists.map((pl) => ({
+                                value: pl.playlist_id,
+                                label: pl.name,
+                            }))
+                        }
                     />
                 </Form.Item>
 

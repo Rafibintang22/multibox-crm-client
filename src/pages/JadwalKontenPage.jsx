@@ -15,7 +15,6 @@ function JadwalKontenPage() {
         try {
             const getScheduleApi = getFunctionApi("schedule", "get");
             const data = await getScheduleApi();
-            console.log(data);
 
             setSchedules(data);
         } catch (error) {

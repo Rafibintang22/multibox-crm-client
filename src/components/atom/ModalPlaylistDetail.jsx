@@ -11,7 +11,6 @@ function ModalPlaylistDetail() {
     const [playlist, setPlaylist] = useState(null);
     const [isEditMode, setIsEditMode] = useState(false);
     const [form] = Form.useForm();
-    console.log(playlist);
 
     useEffect(() => {
         if (!getOneID || isModalOpen !== MODAL_TYPE.DETAIL_PL) return;
@@ -53,8 +52,6 @@ function ModalPlaylistDetail() {
                 airport_id: playlist?.airport.airport_id,
                 ...values,
             };
-
-            console.log(payload);
 
             await updatePlaylist(payload);
             setCondition(ALERT_TYPE.SUCCESS, "Playlist berhasil diubah");

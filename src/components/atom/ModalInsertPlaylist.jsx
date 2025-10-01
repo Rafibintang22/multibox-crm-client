@@ -152,10 +152,13 @@ function ModalInsertPlaylist({ onSuccess }) {
                         mode="multiple"
                         allowClear
                         placeholder="Pilih konten dari server"
-                        options={dataContent.map((c) => ({
-                            value: c.content_id,
-                            label: c.title,
-                        }))}
+                        options={
+                            dataContent &&
+                            dataContent.map((c) => ({
+                                value: c.content_id,
+                                label: c.title,
+                            }))
+                        }
                     />
                 </Form.Item>
 
@@ -173,7 +176,7 @@ function ModalInsertPlaylist({ onSuccess }) {
             </Form>
 
             {/* Preview order */}
-            {orderedContents.length > 0 && (
+            {orderedContents && orderedContents.length > 0 && (
                 <div className="mt-4">
                     <h4>Urutan Konten</h4>
                     <Table
